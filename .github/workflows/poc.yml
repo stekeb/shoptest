@@ -14,6 +14,7 @@ jobs:
     env:
       AWS_REGION: ${{ secrets.AWS_REGION }}
       AWS_ACCOUNT_ID: ${{ secrets.AWS_ACCOUNT_ID }}
+      AWS_APPRUNNER_SERVICE_ARN: ${{ secrets.AWS_APPRUNNER_SERVICE_ARN }}
       REPO_NAME: my-app
 
     steps:
@@ -42,7 +43,7 @@ jobs:
 
       # Deployment: funktioniert, sobald der App Runner Service einmal existiert
       - name: Deploy to App Runner
-        if: ${{ secrets.AWS_APPRUNNER_SERVICE_ARN != '' }}
+        if: ${{ env.AWS_APPRUNNER_SERVICE_ARN != '' }}
         run: |
           IMAGE_REPO="$AWS_ACCOUNT_ID.dkr.ecr.$AWS_REGION.amazonaws.com/$REPO_NAME"
           aws apprunner update-service \
