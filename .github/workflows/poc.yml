@@ -37,6 +37,7 @@ jobs:
         run: |
           IMAGE_REPO="$AWS_ACCOUNT_ID.dkr.ecr.$AWS_REGION.amazonaws.com/$REPO_NAME"
           IMAGE_TAG="${{ github.sha }}"
+          cd frontend
           docker build -t "$IMAGE_REPO:$IMAGE_TAG" -t "$IMAGE_REPO:latest" .
           docker push "$IMAGE_REPO:$IMAGE_TAG"
           docker push "$IMAGE_REPO:latest"
